@@ -19,5 +19,37 @@
         <p id="error-message"></p>
     </div>
     <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCpNuqIWUfTjqdDVF04OXGfU5_xYUwWNYM",
+    authDomain: "restaurant-login-fad97.firebaseapp.com",
+    projectId: "restaurant-login-fad97",
+    storageBucket: "restaurant-login-fad97.firebasestorage.app",
+    messagingSenderId: "821636149963",
+    appId: "1:821636149963:android:f089d50e415f6d4628a14e"
+  };
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  const loginButton = document.querySelector("#login-button");
+loginButton.addEventListener("click", function() {
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("User logged in:", user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+});
+</script>
 </body>
 </html>
